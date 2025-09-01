@@ -28,3 +28,9 @@ Hertil er der også lavet et eksempel af front end design, altså hvordan en cli
 
 <img width="621" height="307" alt="image" src="https://github.com/user-attachments/assets/8e1b533c-ccee-42a0-a28f-0adb5e64b8ae" />
 
+# 01-09-2025
+
+Efter vi fik vores ide med at lave luftsensor undersøgte vi om vi havde sensor på skolen. Vi fandt ud af at Mark havde en Sensor der måler CO2 + Luftfugtighed + Temperatur: Scd40 som vi måt låne. 
+Vi lavede et UI til vores program og testede sensor
+
+
