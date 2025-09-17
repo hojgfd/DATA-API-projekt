@@ -20,12 +20,12 @@
       margin-top: 20px;
     }
     .card {
-      background: #1E90FF; /* blue hex */
+      background: #1E90FF; /* blå hex farve */
       color: white;
       padding: 10px;
       border-radius: 5px;
       cursor: pointer;
-      text-decoration: none; /* removes underline if using <a> */
+      text-decoration: none; /* fjerner underline når <a> */
       display: block;
     }
     .title {
@@ -46,11 +46,11 @@
   <main id="grid"></main>
 
   <script>
-    // Her definerer du dine bokse med data:
+    // Definer bokse herunder: (scalable)
     const boxes = [
       {room:1, temperatur:21.5, co2:450, luftfugtighed:55},
       {room:2, temperatur:22.1, co2:520, luftfugtighed:60},
-      // Tilføj flere bokse her
+      
     ];
 
     const grid = document.getElementById('grid');
@@ -59,7 +59,7 @@
       // Linket:
       const url = `https://ramsen.pythonanywhere.com/${data.room}`;
 
-      // Vi bruger <a> som wrapper:
+      // <a> bruges som wrapper:
       const card = document.createElement('a');
       card.className = 'card';
       card.href = url;
@@ -79,3 +79,4 @@
   </script>
 </body>
 </html>
+
