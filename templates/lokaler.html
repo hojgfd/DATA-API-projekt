@@ -6,27 +6,26 @@
   <title>Lokale oversigt</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f0f0f0;
+      font-family: sans-serif;
     }
+    
     h1 {
       text-align: center;
     }
     main {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, minmax(200px, 1fr));
       gap: 10px;
       margin-top: 20px;
     }
     .card {
-      background: #1E90FF; /* blå hex farve */
+      background: #1E90BF; /* blå ish hex farve */
       color: white;
-      padding: 10px;
-      border-radius: 5px;
+      padding: 15px;
+      border-radius: 10px;
       cursor: pointer;
       text-decoration: none; /* fjerner underline når <a> */
-      display: block;
+     
     }
     .title {
       font-weight: bold;
@@ -42,24 +41,24 @@
   </style>
 </head>
 <body>
-  <h1>Lokaler</h1>
+  <h1>Lokale Oversigt</h1>
   <main id="grid"></main>
 
   <script>
     // Definer bokse herunder: (scalable)
     const boxes = [
-      {room:1, temperatur:21.5, co2:450, luftfugtighed:55},
-      {room:2, temperatur:22.1, co2:520, luftfugtighed:60},
+      {room:"D221", temperatur:21, co2:450, luftfugtighed:55},
+      {room:"D354", temperatur:22, co2:520, luftfugtighed:60},
       
     ];
 
     const grid = document.getElementById('grid');
 
     function makeCard(data) {
-      // Linket:
+      // Klik på boks = route til lokale navn
       const url = `https://ramsen.pythonanywhere.com/${data.room}`;
 
-      // <a> bruges som wrapper:
+      // <a> er wrapper her
       const card = document.createElement('a');
       card.className = 'card';
       card.href = url;
@@ -79,4 +78,3 @@
   </script>
 </body>
 </html>
-
