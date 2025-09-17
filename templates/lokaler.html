@@ -1,13 +1,81 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lokale oversigt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f0f0f0;
+    }
+    h1 {
+      text-align: center;
+    }
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #1E90FF; /* blue hex */
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none; /* removes underline if using <a> */
+      display: block;
+    }
+    .title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .meta {
+      font-size: 14px;
+      line-height: 1.4em;
+    }
+    .card:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lokaler</h1>
+  <main id="grid"></main>
 
-<h1>(Temp) Denne side skal vise lokalernes data:</h1>
+  <script>
+    // Her definerer du dine bokse med data:
+    const boxes = [
+      {room:1, temperatur:21.5, co2:450, luftfugtighed:55},
+      {room:2, temperatur:22.1, co2:520, luftfugtighed:60},
+      // Tilføj flere bokse her
+    ];
 
-<div class="room-box">
-    <h2>Room 1</h2>
-    <p>Temperatur: <span id="room1-temp">22</span>°C</p>
-    <p>Luftfugtighed: <span id="room1-humidity">45</span>%</p>
-    <p>Luftkvalitet2: <span id="room1-light">300</span> Lux</p>
-    <p>Luftkvalitet3: <span id="room1-air">Good</span></p>
-</div>
+    const grid = document.getElementById('grid');
 
+    function makeCard(data) {
+      // Linket:
+      const url = `https://ramsen.pythonanywhere.com/${data.room}`;
 
-Overstående værdier er hardcoded. ToDo: gør dem afhængig af variabler
+      // Vi bruger <a> som wrapper:
+      const card = document.createElement('a');
+      card.className = 'card';
+      card.href = url;
+
+      card.innerHTML = `
+        <div class="title">Lokale ${data.room}</div>
+        <div class="meta">
+          Temperatur: ${data.temperatur} °C<br>
+          CO₂ niveau: ${data.co2} ppm<br>
+          Luftfugtighed: ${data.luftfugtighed} %
+        </div>
+      `;
+      return card;
+    }
+
+    boxes.forEach(boxData => grid.appendChild(makeCard(boxData)));
+  </script>
+</body>
+</html>
