@@ -3,78 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Lokale oversigt</title>
+  <title>Lokale Oversigt</title>
   <style>
     body {
       font-family: sans-serif;
+      margin: 20px;
     }
-    
+
     h1 {
       text-align: center;
+      color: #2c3e50;
     }
+
     main {
       display: grid;
-      grid-template-columns: repeat(3, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 10px;
       margin-top: 20px;
     }
+
     .card {
-      background: #1E90BF; /* blå ish hex farve */
+      background: #1E90BF;
       color: white;
       padding: 15px;
       border-radius: 10px;
       cursor: pointer;
-      text-decoration: none; /* fjerner underline når <a> */
-     
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
     }
+
+    .card:hover {
+      opacity: 0.9;
+      transform: translateY(-3px);
+    }
+
     .title {
       font-weight: bold;
       margin-bottom: 5px;
+      font-size: 18px;
     }
+
     .meta {
       font-size: 14px;
       line-height: 1.4em;
-    }
-    .card:hover {
-      opacity: 0.9;
     }
   </style>
 </head>
 <body>
   <h1>Lokale Oversigt</h1>
-  <main id="grid"></main>
-
-  <script>
-    // Definer bokse herunder: (scalable)
-    const boxes = [
-      {room:"D221", temperatur:21, co2:450, luftfugtighed:55},
-      {room:"D354", temperatur:22, co2:520, luftfugtighed:60},
-      
-    ];
-
-    const grid = document.getElementById('grid');
-
-    function makeCard(data) {
-      // Klik på boks = route til lokale navn
-      const url = `https://ramsen.pythonanywhere.com/${data.room}`;
-
-      // <a> er wrapper her
-      const card = document.createElement('a');
-      card.className = 'card';
-      card.href = url;
-
-      card.innerHTML = `
-        <div class="title">Lokale ${data.room}</div>
+  <main>
+    {% for lok in lokaler %}
+      <a class="card" href="/{{ lok.klasse }}">
+        <div class="title">Lokale {{ lok.klasse }}</div>
         <div class="meta">
-          Temperatur: ${data.temperatur} °C<br>
-          CO₂ niveau: ${data.co2} ppm<br>
-          Luftfugtighed: ${data.luftfugtighed} %
+          Temperatur: {{ lok.temperature }} °C<br>
+          CO₂ niveau: {{ lok.co2 }} ppm<br>
+          Luftfugtighed: {{ lok.luftfugtighed }} %
         </div>
-      `;
-      return card;
-    }
-
-    boxes.forEach(boxData => grid.appendChild(makeCard(boxData)));
-  </script>
+      </a>
+    {% endfor %}
+  </main>
 </body>
 </html>
