@@ -34,3 +34,9 @@ Efter vi fik vores ide med at lave luftsensor undersøgte vi om vi havde sensor 
 Vi lavede et UI til vores program og testede sensor
 
 
+# 17-09-2025
+Delt trello link med Mark
+Få data med ESP32 virker nu. Dette tog lidt lang tid.
+UI til /lokaler er nu lavet - dog mangler vi at benytte værdier fra sensor
+UI til specifikke lokaler er undervejs
+UI til varme-koldest er undervejs
