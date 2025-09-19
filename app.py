@@ -91,19 +91,19 @@ def lokaler():
 # Varmest/koldest
 @app.route('/varmest-koldest')
 def varmest_koldest():
-    #conn = sqlite3.connect('items.db')
-    #cursor = conn.cursor()
-    #cursor.execute("SELECT klasse, MAX(temperature), MIN(temperature) FROM items")
-    #result = cursor.fetchone()
-    #conn.close()
 
-    #data = {
-     #   "klasse": result[0],
-      #  "max_temp": result[1],
-       # "min_temp": result[2]
-    #}
+    # sortér efter temperatur
+    lokaler_sorted = sorted(lokaler_data, key=lambda x: x["temperatur"], reverse=True)
 
-    return render_template("varmest-koldest.html")
+    varmest = lokaler_sorted[0]
+    koldest = lokaler_sorted[-1]
+
+    return render_template(
+        "varmest-koldest.html",
+        lokaler=lokaler_sorted,
+        varmest=varmest,
+        koldest=koldest
+    )
     #return render_template("varmest-koldest.html",result=data)
 
 # Anbefalinger
@@ -130,4 +130,5 @@ def anbefalinger():
     return jsonify(problemer)
 
 if __name__ == "__main__":
+
     app.run(debug=True)
