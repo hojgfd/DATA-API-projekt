@@ -56,38 +56,34 @@
             font-style: italic;
             padding: 20px;
         }
-        /* Responsive design for mindre skærme */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
+       
+        
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="#" class="back-button">Tilbage</a>
-        <h1>Lokale [lokale nr]</h1>
+        <h1>Lokale {{ lokale_nr }}</h1>
     </div>
 
     <div class="container">
         <div class="graph-box">
-            <div class="graph-title">Temperatur: [Temp]</div>
+            <div class="graph-title">Temperatur: {{ temp }}</div>
             <div class="graph-placeholder">
                 "graf af temperatur datapunktter over tid"
             </div>
         </div>
         
         <div class="graph-box">
-            <div class="graph-title">CO2: [PPM]</div>
+            <div class="graph-title">CO2: {{ co2_ppm }}</div>
             <div class="graph-placeholder">
                 "graf af co2 ppm data over tid"
             </div>
         </div>
 
         <div class="graph-box">
-            <div class="graph-title">Luftfugtighed: [%]</div>
+            <div class="graph-title">Luftfugtighed: {{ humidity }}</div>
             <div class="graph-placeholder">
                 "graf af luftfugtighed data over tid"
             </div>
