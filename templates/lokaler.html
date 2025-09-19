@@ -1,37 +1,48 @@
-
 <!doctype html>
 <html lang="da">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Lokale oversigt</title>
+  <title>Lokale Oversigt</title>
   <style>
     body {
       font-family: sans-serif;
+      margin: 20px;
     }
-    
+
     h1 {
       text-align: center;
+      color: #2c3e50;
     }
-    main { /* How many boxes per line, their size & distance from eachother + distance from top: */
+
+    main {
       display: grid;
-      grid-template-columns: repeat(3, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 10px;
       margin-top: 20px;
     }
+
     .card {
-      background: #1E90BF; /* blå-ish hex farve */
-      color: white; /* tekst farve */
-      padding: 15px; /* afstand af border til tekst */
-      border-radius: 15px; /*afrunding boks-kanter*/
-      cursor: pointer; 
-      text-decoration: none; /* fjerner underline når <a> */
-     
+      background: #1E90BF;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
     }
+
+    .card:hover {
+      opacity: 0.9;
+      transform: translateY(-3px);
+    }
+
     .title {
       font-weight: bold;
       margin-bottom: 5px;
+      font-size: 18px;
     }
+
     .meta {
       font-size: 14px;
       line-height: 1.4em;
@@ -40,42 +51,17 @@
 </head>
 <body>
   <h1>Lokale Oversigt</h1>
-  <main id="grid"></main>
-
-  <script>
-    // Definer bokse herunder: (scalable, indsæt som herunder)
-    // {room:{{ lokale_nr }}, temperatur:{{ temp }}, co2:{{co2_ppm}}, luftfugtighed:{{ humidity }} },
-
-    const boxes = [
-      {room:"D354", temperatur: 1, co2: 2, luftfugtighed: 3 },
-      {room:"(Eksempel) se kode kommentar for erstatning", temperatur: 1, co2: 2, luftfugtighed: 3 },
-
-
-    ];
-
-    const grid = document.getElementById('grid');
-
-    function makeCard(data) {
-      // Klik på boks = route til lokale navn
-      const url = `https://ramsen.pythonanywhere.com/${data.room}`;
-
-      // <a> bruges som wrapper:
-      const card = document.createElement('a');
-      card.className = 'card';
-      card.href = url;
-
-      card.innerHTML = `
-        <div class="title">Lokale ${data.room}</div>
+  <main>
+    {% for lok in lokaler %}
+      <a class="card" href="/{{ lok.klasse }}">
+        <div class="title">Lokale {{ lok.klasse }}</div>
         <div class="meta">
-          Temperatur: ${data.temperatur} °C<br>
-          CO₂ niveau: ${data.co2} ppm<br>
-          Luftfugtighed: ${data.luftfugtighed} %
+          Temperatur: {{ lok.temperatur }} °C<br>
+          CO₂ niveau: {{ lok.co2 }} ppm<br>
+          Luftfugtighed: {{ lok.luftfugtighed }} %
         </div>
-      `;
-      return card;
-    }
-
-    boxes.forEach(boxData => grid.appendChild(makeCard(boxData)));
-  </script>
+      </a>
+    {% endfor %}
+  </main>
 </body>
 </html>

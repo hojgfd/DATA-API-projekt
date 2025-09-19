@@ -1,8 +1,8 @@
 import sqlite3
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 import time
-import threading
-import serial
+#import threading
+#import serial
 
 
 # Initialize Flask app
@@ -17,16 +17,18 @@ humidity = ""
 
 
 # Opret forbindelse til Arduino
-ser = serial.Serial(arduino_port, baud_rate, timeout=2)
+#ser = serial.Serial(arduino_port, baud_rate, timeout=2)
 time.sleep(2)  # vent på at Arduino resetter
 
 lokaler_data = [
-    {"klasse": "Nuværende placering", "co2": 0, "temperature": 0, "luftfugtighed": 0},
-    {"klasse": "D2321", "co2": 1111, "temperature": 22.55, "luftfugtighed": 55.12},
-    {"klasse": "D2349", "co2":1004, "temperature": 21.44, "luftfugtighed": 49.69}
+    {"klasse": "Nuværende placering", "co2": 1114, "temperatur": 22.22, "luftfugtighed": 66.23},
+    {"klasse": "D2321", "co2": 1111, "temperatur": 22.55, "luftfugtighed": 55.12},
+    {"klasse": "D2349", "co2":1004, "temperatur": 21.44, "luftfugtighed": 49.69}
 ]
 
-def baggrundsopgave():
+
+
+'''def baggrundsopgave():
     try:
         while True:
             if ser.in_waiting > 0:
@@ -51,19 +53,30 @@ def baggrundsopgave():
     except KeyboardInterrupt:
         print("Afslutter...")
     finally:
-        ser.close()
+        ser.close()'''
 
 
 # Start baggrundstråden før Flask kører
-thread = threading.Thread(target=baggrundsopgave)
-thread.daemon = True  # gør tråden til daemon, så den stopper når appen stopper
-thread.start()
+#thread = threading.Thread(target=baggrundsopgave)
+#thread.daemon = True  # gør tråden til daemon, så den stopper når appen stopper
+#thread.start()
 
 # Homescreen
 @app.route('/')
 def home():
     return render_template("home.html")
 
+@app.route('/data', methods=['POST'])
+def receive_data():
+    content = request.get_json(force=True)  # JSON fra ESP32
+    print("Received:", content)
+
+    # Opdater lokaler_data[0] med nye værdier
+    lokaler_data[0]["co2"] = content.get("co2", 0)
+    lokaler_data[0]["temperatur"] = content.get("temperature", 0.0)
+    lokaler_data[0]["luftfugtighed"] = content.get("humidity", 0.0)
+
+    return jsonify({"status": "ok", "received": content}), 200
 # Lokaler
 @app.route('/lokaler')
 def lokaler():

@@ -36,3 +36,4 @@ except KeyboardInterrupt:
     print("Afslutter...")
 finally:
     ser.close()
+
