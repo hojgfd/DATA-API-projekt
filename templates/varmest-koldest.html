@@ -56,7 +56,7 @@
   <h1>🌡️ Temperatur Oversigt</h1>
   <div class="content">
     <!-- Tabellen -->
-    <table id="lokaleTable">
+    <table>
       <thead>
         <tr>
           <th>Lokale</th>
@@ -65,46 +65,24 @@
           <th>Luftfugtighed</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        {% for l in lokaler %}
+          <tr>
+            <td>{{ l.klasse }}</td>
+            <td>{{ l.temperatur }} °C</td>
+            <td>{{ l.co2 }} ppm</td>
+            <td>{{ l.luftfugtighed }} %</td>
+          </tr>
+        {% endfor %}
+      </tbody>
     </table>
 
     <!-- Info boks -->
-    <div class="info-box" id="infoBox">
+    <div class="info-box">
       <h3> Oversigt</h3>
-      <p id="varmest"></p>
-      <p id="koldest"></p>
+      <p>🔥 Varmest: {{ varmest.room }} ({{ varmest.temperatur }} °C)</p>
+      <p>❄️ Koldest: {{ koldest.room }} ({{ koldest.temperatur }} °C)</p>
     </div>
   </div>
-
-  <script>
-    // Dummy data (tilføj bare flere hvis du vil)
-    const lokaler = [
-      {room:"D221", temperatur:21, co2:450, luftfugtighed:55},
-      {room:"D354", temperatur:22, co2:520, luftfugtighed:60},
-      {room:"D401", temperatur:50, co2:700, luftfugtighed:80},
-    ];
-
-    // Sorter lokaler fra varmest til koldest
-    lokaler.sort((a, b) => b.temperatur - a.temperatur);
-
-    const tbody = document.querySelector("#lokaleTable tbody");
-
-    lokaler.forEach(l => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${l.room}</td>
-        <td>${l.temperatur} °C</td>
-        <td>${l.co2} ppm</td>
-        <td>${l.luftfugtighed} %</td>
-      `;
-      tbody.appendChild(tr);
-    });
-
-    // Info om varmeste og koldeste
-    document.getElementById("varmest").innerText =
-      `🔥 Varmest: ${lokaler[0].room} (${lokaler[0].temperatur} °C)`;
-    document.getElementById("koldest").innerText =
-      `❄️ Koldest: ${lokaler[lokaler.length-1].room} (${lokaler[lokaler.length-1].temperatur} °C)`;
-  </script>
 </body>
 </html>
