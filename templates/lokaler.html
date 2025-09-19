@@ -17,18 +17,18 @@
 
     main {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(3 , minmax(200px, 1fr));
       gap: 10px;
       margin-top: 20px;
     }
 
     .card {
-      background: #1E90BF;
-      color: white;
-      padding: 15px;
-      border-radius: 10px;
-      cursor: pointer;
-      text-decoration: none;
+      background: #1E90BF; /* blå-ish hex farve */
+      color: white; /* tekst farve */
+      padding: 15px; /* afstand af border til tekst */
+      border-radius: 15px; /*afrunding boks-kanter*/
+      cursor: pointer; 
+      text-decoration: none; /* fjerner underline når <a> */
       transition: opacity 0.2s, transform 0.2s;
     }
 
@@ -56,7 +56,7 @@
       <a class="card" href="/{{ lok.klasse }}">
         <div class="title">Lokale {{ lok.klasse }}</div>
         <div class="meta">
-          Temperatur: {{ lok.temperatur }} °C<br>
+          Temperatur: {{ lok.temperature }} °C<br>
           CO₂ niveau: {{ lok.co2 }} ppm<br>
           Luftfugtighed: {{ lok.luftfugtighed }} %
         </div>
