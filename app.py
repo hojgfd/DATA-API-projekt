@@ -108,26 +108,21 @@ def varmest_koldest():
 
 # Anbefalinger
 @app.route('/anbefalinger')
-def anbefalinger():
-    conn = sqlite3.connect('items.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT klasse, co2, temperature, luftfugtighed FROM items")
-    rows = cursor.fetchall()
-    conn.close()
+def anbefalinger_side():
+    # Saml alle lokaler der ikke opfylder anbefalinger
+    lokaler_problemer = []
+    for l in lokaler_data:
+        problemer = []
+        if l["co2"] > 1000:
+            problemer.append("For højt CO₂")
+        if l["temperatur"] < 20:
+            problemer.append("For koldt")
+        if l["temperatur"] > 25:
+            problemer.append("For varmt")
+        if problemer:
+            lokaler_problemer.append({**l, "problemer": problemer})
 
-    problemer = []
-    for r in rows:
-        problemer_i_lokale = []
-        if r[1] > 1000:  # CO2 for højt
-            problemer_i_lokale.append("For højt CO₂")
-        if r[2] < 20:
-            problemer_i_lokale.append("For koldt")
-        if r[2] > 25:
-            problemer_i_lokale.append("For varmt")
-        if problemer_i_lokale:
-            problemer.append((r[0], problemer_i_lokale))
-
-    return jsonify(problemer)
+    return render_template("anbefalinger.html", lokaler=lokaler_problemer)
 
 if __name__ == "__main__":
 

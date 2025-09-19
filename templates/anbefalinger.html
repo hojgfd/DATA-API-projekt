@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lokaler der ikke opfylder anbefalinger</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #c0392b;
+    }
+    table {
+      border-collapse: collapse;
+      width: 800px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #e74c3c;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9e6e6;
+    }
+    tr:nth-child(odd) {
+      background-color: #fceaea;
+    }
+    .info-box {
+      background: #e74c3c;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      min-width: 250px;
+    }
+    .info-box h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lokaler der ikke opfylder anbefalinger</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Lokale</th>
+        <th>Temperatur</th>
+        <th>CO₂</th>
+        <th>Luftfugtighed</th>
+        <th>Problemer</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for l in lokaler %}
+        <tr>
+          <td>{{ l.klasse }}</td>
+          <td>{{ l.temperatur }} °C</td>
+          <td>{{ l.co2 }} ppm</td>
+          <td>{{ l.luftfugtighed }} %</td>
+          <td>{{ l.problemer | join(", ") }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <h3>Oversigt</h3>
+    <p>Antal lokaler med problemer: {{ lokaler | length }}</p>
+  </div>
+</body>
+</html>
