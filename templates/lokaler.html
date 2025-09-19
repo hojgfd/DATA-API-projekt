@@ -13,18 +13,18 @@
     h1 {
       text-align: center;
     }
-    main {
+    main { /* How many boxes per line, their size & distance from eachother + distance from top: */
       display: grid;
       grid-template-columns: repeat(3, minmax(200px, 1fr));
       gap: 10px;
       margin-top: 20px;
     }
     .card {
-      background: #1E90BF; /* blå hex farve */
-      color: white;
-      padding: 15px;
-      border-radius: 10px;
-      cursor: pointer;
+      background: #1E90BF; /* blå-ish hex farve */
+      color: white; /* tekst farve */
+      padding: 15px; /* afstand af border til tekst */
+      border-radius: 15px; /*afrunding boks-kanter*/
+      cursor: pointer; 
       text-decoration: none; /* fjerner underline når <a> */
      
     }
@@ -35,9 +35,6 @@
     .meta {
       font-size: 14px;
       line-height: 1.4em;
-    }
-    .card:hover {
-      opacity: 0.9;
     }
   </style>
 </head>
