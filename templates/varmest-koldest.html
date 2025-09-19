@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lokale temperaturer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .content {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+    table {
+      border-collapse: collapse;
+      width: 600px;
+      font-size: 16px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #1E90BF;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:nth-child(odd) {
+      background-color: #eaf6fb;
+    }
+    .info-box {
+      background: #1E90BF;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      min-width: 200px;
+    }
+    .info-box h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌡️ Temperatur Oversigt</h1>
+  <div class="content">
+    <!-- Tabellen -->
+    <table id="lokaleTable">
+      <thead>
+        <tr>
+          <th>Lokale</th>
+          <th>Temperatur</th>
+          <th>CO₂</th>
+          <th>Luftfugtighed</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Info boks -->
+    <div class="info-box" id="infoBox">
+      <h3>📊 Oversigt</h3>
+      <p id="varmest"></p>
+      <p id="koldest"></p>
+    </div>
+  </div>
+
+  <script>
+    // Dummy data (tilføj bare flere hvis du vil)
+    const lokaler = [
+      {room:"D221", temperatur:21, co2:450, luftfugtighed:55},
+      {room:"D354", temperatur:22, co2:520, luftfugtighed:60},
+      {room:"D401", temperatur:50, co2:700, luftfugtighed:80},
+    ];
+
+    // Sorter lokaler fra varmest til koldest
+    lokaler.sort((a, b) => b.temperatur - a.temperatur);
+
+    const tbody = document.querySelector("#lokaleTable tbody");
+
+    lokaler.forEach(l => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${l.room}</td>
+        <td>${l.temperatur} °C</td>
+        <td>${l.co2} ppm</td>
+        <td>${l.luftfugtighed} %</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Info om varmeste og koldeste
+    document.getElementById("varmest").innerText =
+      `🔥 Varmest: ${lokaler[0].room} (${lokaler[0].temperatur} °C)`;
+    document.getElementById("koldest").innerText =
+      `❄️ Koldest: ${lokaler[lokaler.length-1].room} (${lokaler[lokaler.length-1].temperatur} °C)`;
+  </script>
+</body>
+</html>
