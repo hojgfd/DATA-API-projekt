@@ -21,7 +21,6 @@ humidity = ""
 time.sleep(2)  # vent på at Arduino resetter
 
 lokaler_data = [
-    {"klasse": "Nuværende placering", "co2": 1114, "temperatur": 22.22, "luftfugtighed": 66.23},
     {"klasse": "D2321", "co2": 1111, "temperatur": 22.55, "luftfugtighed": 55.12},
     {"klasse": "D2349", "co2":1004, "temperatur": 21.44, "luftfugtighed": 49.69}
 ]
