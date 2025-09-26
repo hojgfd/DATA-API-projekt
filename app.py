@@ -103,7 +103,7 @@ def receive_data():
     c.execute("""
         INSERT INTO sensor_data (klasse, co2, temperatur, luftfugtighed)
         VALUES (?, ?, ?, ?)
-    """, ("Nuværende placering", co2, temperature, humidity))
+    """, ("D2321", co2, temperature, humidity))
     conn.commit()
     conn.close()
 
@@ -138,6 +138,13 @@ def lokaler():
     #conn.close()
 
     return render_template("lokaler.html", lokaler=lokaler_data)
+
+
+@app.route('/<lokaleID>')
+def lokaleSpecifik(lokaleID):
+    if lokaleID.startswith('D') and len(lokaleID) == 5 and lokaleID[1:].isdigit():
+        specifikt_lokale = next((l for l in lokaler_data if l["klasse"] == lokaleID), None)
+        return render_template('GrafTemp.html', lokale=specifikt_lokale)
 
 # Varmest/koldest
 @app.route('/varmest-koldest')
