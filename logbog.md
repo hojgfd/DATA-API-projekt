@@ -47,3 +47,19 @@ UI til /lokaler er nu lavet - dog mangler vi at benytte værdier fra sensor
 UI til specifikke lokaler er undervejs
 
 UI til varme-koldest er undervejs
+
+
+# 24-09-2025
+
+Alle var til stede
+
+Historik over datamålinger og database dertil er lavet. En minimum viable UI er også lavet til dette, og det kører på pythonAnywhere
+
+
+
+Der er lavet UI til grafer. Nu mangler der bare at benytte de faktiske data - samt at indkooperere det i den generelle UI for specifik lokale.
+
+
+
+Generelt små rettelser af kode
+
