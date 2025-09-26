@@ -61,6 +61,24 @@ lokaler_data = [
 #thread.daemon = True  # gør tråden til daemon, så den stopper når appen stopper
 #thread.start()
 
+def init_db():
+    conn = sqlite3.connect("items.db")
+    c = conn.cursor()
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS sensor_data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            klasse TEXT,
+            tidspunkt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            co2 INTEGER,
+            temperatur REAL,
+            luftfugtighed REAL
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+
+
 # Homescreen
 @app.route('/')
 def home():
@@ -68,15 +86,48 @@ def home():
 
 @app.route('/data', methods=['POST'])
 def receive_data():
-    content = request.get_json(force=True)  # JSON fra ESP32
-    print("Received:", content)
+    content = request.get_json(force=True)
 
-    # Opdater lokaler_data[0] med nye værdier
-    lokaler_data[0]["co2"] = content.get("co2", 0)
-    lokaler_data[0]["temperatur"] = content.get("temperature", 0.0)
-    lokaler_data[0]["luftfugtighed"] = content.get("humidity", 0.0)
+    co2 = content.get("co2", 0)
+    temperature = content.get("temperature", 0.0)
+    humidity = content.get("humidity", 0.0)
+
+    # Opdater lokaler_data[0] (så din nuværende visning virker)
+    lokaler_data[0]["co2"] = co2
+    lokaler_data[0]["temperatur"] = temperature
+    lokaler_data[0]["luftfugtighed"] = humidity
+
+    # GEM i databasen (historik)
+    conn = sqlite3.connect("items.db")
+    c = conn.cursor()
+    c.execute("""
+        INSERT INTO sensor_data (klasse, co2, temperatur, luftfugtighed)
+        VALUES (?, ?, ?, ?)
+    """, ("Nuværende placering", co2, temperature, humidity))
+    conn.commit()
+    conn.close()
 
     return jsonify({"status": "ok", "received": content}), 200
+
+@app.route('/historik')
+def historik():
+    conn = sqlite3.connect("items.db")
+    c = conn.cursor()
+    c.execute("""
+        SELECT strftime('%Y-%m-%d %H:%M:00', tidspunkt) as minut,
+               AVG(co2),
+               AVG(temperatur),
+               AVG(luftfugtighed)
+        FROM sensor_data
+        GROUP BY minut
+        ORDER BY minut DESC
+    """)
+    rows = c.fetchall()
+    conn.close()
+
+    return render_template("historik.html", data=rows)
+
+
 # Lokaler
 @app.route('/lokaler')
 def lokaler():
@@ -125,5 +176,5 @@ def anbefalinger_side():
     return render_template("anbefalinger.html", lokaler=lokaler_problemer)
 
 if __name__ == "__main__":
-
+    init_db()
     app.run(debug=True)
