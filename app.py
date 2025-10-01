@@ -22,7 +22,9 @@ time.sleep(2)  # vent på at Arduino resetter
 
 lokaler_data = [
     {"klasse": "D2321", "co2": 1111, "temperatur": 22.55, "luftfugtighed": 55.12},
-    {"klasse": "D2349", "co2":1004, "temperatur": 21.44, "luftfugtighed": 49.69}
+    {"klasse": "D2349", "co2":1004, "temperatur": 21.44, "luftfugtighed": 49.69},
+    {"klasse": "D2221", "co2":804, "temperatur": 20.25, "luftfugtighed": 50.01},
+    {"klasse": "D2265", "co2":910, "temperatur": 19.80, "luftfugtighed": 57.40}
 ]
 
 
@@ -184,3 +186,4 @@ def anbefalinger_side():
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)
+
