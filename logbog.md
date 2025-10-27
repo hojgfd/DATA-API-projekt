@@ -63,3 +63,15 @@ Der er lavet UI til grafer. Nu mangler der bare at benytte de faktiske data - sa
 
 Generelt små rettelser af kode
 
+
+
+
+# 27-10-2025
+
+Revideret database struktur, så det følger normalform 2:
+
+<img width="820" height="941" alt="image" src="https://github.com/user-attachments/assets/3d29e00d-879c-4031-a83a-c4a5babe57ba" />
+
+
+
+Opdateret database strukturen i koden også.
