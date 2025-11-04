@@ -78,3 +78,20 @@ Revideret database struktur, så det følger normalform 2:
 
 
 Opdateret database strukturen i koden også.
+
+
+# 04-11-2025
+
+
+Ramsen og Rasmus er til stede
+
+
+Ramsen har foretaget brugertest med Lukas. Typen af brugertest var hvor han skulle fuldføre opgaver/objectives.
+
+
+
+Rasmus har desigent, laserskåret, samlet og testet iteration 2 af elektronik boks & lavet iteration 3 af selve sliding door.
+
+
+<img width="711" height="633" alt="image" src="https://github.com/user-attachments/assets/1366104b-957d-4124-88b1-fc2fdd534fdb" />
+
