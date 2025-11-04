@@ -90,7 +90,7 @@ Ramsen har foretaget brugertest med Lukas. Typen af brugertest var hvor han skul
 
 
 
-Rasmus har desigent, laserskåret, samlet og testet iteration 2 af elektronik boks & lavet iteration 3 af selve sliding door.
+Rasmus har desigent, laserskåret, samlet og testet iteration 2 af elektronik boks & lavet iteration 3 af selve sliding door. Se evt. trello for flere billeder.
 
 
 <img width="711" height="633" alt="image" src="https://github.com/user-attachments/assets/1366104b-957d-4124-88b1-fc2fdd534fdb" />
