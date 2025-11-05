@@ -1,3 +1,4 @@
+
 import sqlite3
 from flask import Flask, jsonify, render_template, request
 import time
@@ -144,7 +145,6 @@ def lokaler():
 @app.route('/<lokaleID>')
 def lokaleSpecifik(lokaleID):
     if lokaleID.startswith('D') and len(lokaleID) == 5 and lokaleID[1:].isdigit():
-        # Query the database for historical data filtered by klasse (lokaleID)
         conn = sqlite3.connect("items.db")
         c = conn.cursor()
         c.execute("""
@@ -160,18 +160,16 @@ def lokaleSpecifik(lokaleID):
         rows = c.fetchall()
         conn.close()
         if rows:
-            # Use the latest aggregated row for current display values
-            latest_row = rows[0]  # First row is the most recent (due to ORDER BY DESC)
+            latest_row = rows[0] 
             specifikt_lokale = {
                 "klasse": lokaleID,
                 "co2": latest_row[1],  # AVG(co2)
                 "temperatur": latest_row[2],  # AVG(temperatur)
                 "luftfugtighed": latest_row[3]  # AVG(luftfugtighed)
             }
-            # Pass both the latest values and the full rows (for graphs/history)
             return render_template('lokaleSpecifik.html', lokale=specifikt_lokale, data=rows)
         else:
-            # No data found for this klasse
+            # Ingen data
             return render_template('error.html', message=f"Ingen data fundet for lokale {lokaleID}"), 404
     else:
         return render_template('error.html', message="Ugyldigt lokale ID"), 400
