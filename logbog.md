@@ -95,3 +95,16 @@ Rasmus har desigent, laserskåret, samlet og testet iteration 2 af elektronik bo
 
 <img width="711" height="633" alt="image" src="https://github.com/user-attachments/assets/1366104b-957d-4124-88b1-fc2fdd534fdb" />
 
+
+# 05-11-2025
+
+Alle er her 
+
+
+Ramsen har forsøgt at få ESP32 til at virke på Marks internet. Det fungerer ikke helt endnu.
+Ramsen har været i gang med at få udskiftet arduinoen, da dens mikrousb intake knækkede af.
+
+Rasmus har fået gjort så lokaleSpecifik nu displayer faktisk data i de 3 grafer. Det fungerer.
+
+
+
