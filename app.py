@@ -144,8 +144,39 @@ def lokaler():
 @app.route('/<lokaleID>')
 def lokaleSpecifik(lokaleID):
     if lokaleID.startswith('D') and len(lokaleID) == 5 and lokaleID[1:].isdigit():
-        specifikt_lokale = next((l for l in lokaler_data if l["klasse"] == lokaleID), None)
-        return render_template('GrafTemp.html', lokale=specifikt_lokale)
+        # Query the database for historical data filtered by klasse (lokaleID)
+        conn = sqlite3.connect("items.db")
+        c = conn.cursor()
+        c.execute("""
+            SELECT strftime('%Y-%m-%d %H:%M:00', tidspunkt) as minut,
+                   AVG(co2),
+                   AVG(temperatur),
+                   AVG(luftfugtighed)
+            FROM sensor_data
+            WHERE klasse = ?
+            GROUP BY minut
+            ORDER BY minut DESC
+        """, (lokaleID,))
+        rows = c.fetchall()
+        conn.close()
+        if rows:
+            # Use the latest aggregated row for current display values
+            latest_row = rows[0]  # First row is the most recent (due to ORDER BY DESC)
+            specifikt_lokale = {
+                "klasse": lokaleID,
+                "co2": latest_row[1],  # AVG(co2)
+                "temperatur": latest_row[2],  # AVG(temperatur)
+                "luftfugtighed": latest_row[3]  # AVG(luftfugtighed)
+            }
+            # Pass both the latest values and the full rows (for graphs/history)
+            return render_template('lokaleSpecifik.html', lokale=specifikt_lokale, data=rows)
+        else:
+            # No data found for this klasse
+            return render_template('error.html', message=f"Ingen data fundet for lokale {lokaleID}"), 404
+    else:
+        return render_template('error.html', message="Ugyldigt lokale ID"), 400
+
+
 
 # Varmest/koldest
 @app.route('/varmest-koldest')
