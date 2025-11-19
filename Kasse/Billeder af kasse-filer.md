@@ -10,6 +10,8 @@
 
 ## Lightburn
 
+<img width="610" height="334" alt="image" src="https://github.com/user-attachments/assets/35ada406-e250-4f2c-a591-ce55a4a10717" />
+
 
 # Iteration 2
 
